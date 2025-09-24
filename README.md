@@ -12,7 +12,7 @@ This guide is for **MS Windows** users and assumes no prior programming experien
 
 Miniconda is a free program that manages our Python software. This is the only program you need to install from the web.
 
-1.  Go to the [Miniconda download page for Windows](https://docs.anaconda.com/free/miniconda/miniconda-install/#windows-installers).
+1.  Go to the [Miniconda download page for Windows](https://www.anaconda.com/download/success).
 2.  Download the latest **Windows 64-bit installer**.
 3.  Run the installer file you downloaded. Accept the default settings for all installation steps.
 
