@@ -1,0 +1,27 @@
+# This file specifies a stable software environment for the Brightway course.
+# It uses the classic Brightway2 component stack to ensure maximum
+# compatibility with the 'activity-browser'.
+name: bw-course
+channels:
+  - conda-forge
+dependencies:
+  # Core Python version
+  - python=3.10
+
+  # Classic Brightway2 stack. Let conda find the latest compatible versions.
+  - brightway2
+  - bw2io
+  - bw2calc
+  - bw2data
+
+  # The graphical user interface for Brightway
+  - activity-browser
+
+  # The interface for running code in the browser (notebooks)
+  - jupyterlab
+
+  # Library for handling .7z compressed files
+  - py7zr
+
+  # Library for finding user data directories, used in the import script
+  - appdirs
