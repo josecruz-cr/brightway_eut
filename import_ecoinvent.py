@@ -16,15 +16,13 @@ EXTRACT_DIR = "extracted_ecoinvent_data"
 # ---------------------
 
 # --- Main import logic ---
-# It's better to import brightway after the reset logic to avoid
-# any potential file-locking issues, although it's rare.
 print("--- Brightway Database Importer for Eurecat Course ---")
 
 # --- Step 1: Clean Slate Reset ---
 # This "hard reset" is the most robust way to ensure every student
-# starts from the same clean state[cite: 37].
+# starts from the same clean state.
 print(f"\n[Step 1/4] Checking for and removing any old '{PROJECT_NAME}' project data...")
-bw2_projects_dir = appdirs.user_data_dir("pylca", "Brightway2") [cite: 39]
+bw2_projects_dir = appdirs.user_data_dir("pylca", "Brightway2")
 project_dir = os.path.join(bw2_projects_dir, PROJECT_NAME)
 if os.path.exists(project_dir):
     shutil.rmtree(project_dir, ignore_errors=True)
@@ -36,11 +34,11 @@ import bw2io
 
 # --- Step 2: Brightway Setup ---
 # Set up the project and download standard data (biosphere, methods).
-# This requires an internet connection on the first run[cite: 41].
+# This requires an internet connection on the first run.
 print(f"\n[Step 2/4] Setting up new Brightway project: '{PROJECT_NAME}'...")
 bw.projects.set_current(PROJECT_NAME)
 print("Downloading and installing standard data (biosphere, LCIA methods)...")
-bw2io.bw2setup() [cite: 42]
+bw2io.bw2setup()
 
 # --- Step 3: Find and Extract Ecoinvent Data ---
 current_path = os.getcwd()
@@ -54,7 +52,7 @@ if DB_NAME in bw.databases:
 
 if not os.path.exists(file_path):
     print(f"\n❌ ERROR: Ecoinvent file not found!", file=sys.stderr)
-    print(f"Please make sure the file '{ECOINVENT_FILE}' is in this folder:", file=sys.stderr) [cite: 43]
+    print(f"Please make sure the file '{ECOINVENT_FILE}' is in this folder:", file=sys.stderr)
     print(f"--> {current_path}", file=sys.stderr)
     sys.exit(1)
 
@@ -62,8 +60,8 @@ print(f"\n[Step 3/4] Found Ecoinvent data file. Extracting...")
 try:
     if os.path.exists(extract_path):
         shutil.rmtree(extract_path)
-    with py7zr.SevenZipFile(file_path, mode='r') as z: [cite: 44]
-        z.extractall(path=extract_path) [cite: 44]
+    with py7zr.SevenZipFile(file_path, mode='r') as z:
+        z.extractall(path=extract_path)
     print("Extraction complete.")
 except Exception as e:
     print("\n❌ ERROR: Could not extract the .7z file.", file=sys.stderr)
@@ -76,11 +74,11 @@ except Exception as e:
 import_path = os.path.join(extract_path, 'datasets')
 if not os.path.exists(import_path):
     subfolders = [f.path for f in os.scandir(extract_path) if f.is_dir()]
-    import_path = subfolders[0] if subfolders else extract_path [cite: 45]
+    import_path = subfolders[0] if subfolders else extract_path
 
 print(f"Data for import found at: {import_path}")
-print(f"\n[Step 4/4] Starting database import into Brightway...") [cite: 46]
-print("This is the longest step (10-20 minutes) and uses a lot of memory.") [cite: 46]
+print(f"\n[Step 4/4] Starting database import into Brightway...")
+print("This is the longest step (10-20 minutes) and uses a lot of memory.")
 
 try:
     importer = bw2io.SingleOutputEcospold2Importer(import_path, DB_NAME)
@@ -88,8 +86,8 @@ try:
     importer.statistics()
     importer.write_database()
     print(f"\n✅ SUCCESS: Database '{DB_NAME}' has been imported!")
-except Exception as e: [cite: 47]
-    print("\n❌ ERROR: An unexpected error occurred during import.", file=sys.stderr) [cite: 47]
-    print("Please check if you have enough free RAM and disk space.", file=sys.stderr) [cite: 47]
+except Exception as e:
+    print("\n❌ ERROR: An unexpected error occurred during import.", file=sys.stderr)
+    print("Please check if you have enough free RAM and disk space.", file=sys.stderr)
     print(f"Detailed error: {e}", file=sys.stderr)
     sys.exit(1)
