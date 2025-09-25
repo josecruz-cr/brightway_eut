@@ -1,6 +1,5 @@
-# This file specifies a stable software environment for the Brightway course.
-# It uses the classic Brightway2 component stack to ensure maximum
-# compatibility with the 'activity-browser'.
+# Stable software environment for the Brightway course
+# Using Brightway2 + Activity Browser, tested with ecoinvent 3.9.1
 name: bw-course
 channels:
   - conda-forge
@@ -8,20 +7,20 @@ dependencies:
   # Core Python version
   - python=3.10
 
-  # Classic Brightway2 stack. Let conda find the latest compatible versions.
+  # Classic Brightway2 stack
   - brightway2
   - bw2io
   - bw2calc
   - bw2data
 
-  # The graphical user interface for Brightway
+  # GUI for Brightway
   - activity-browser
 
-  # The interface for running code in the browser (notebooks)
+  # For teaching notebooks
   - jupyterlab
 
-  # Library for handling .7z compressed files
-  - py7zr
-
-  # Library for finding user data directories, used in the import script
-  - appdirs
+  # Data analysis stack
+  - numpy
+  - pandas
+  - matplotlib
+  - seaborn
