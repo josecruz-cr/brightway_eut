@@ -21,11 +21,11 @@ Welcome to the introductory session on Brightway! This document will serve as ou
 2.  **Open the Notebook:**
     * In the Jupyter Lab browser tab, find and open the `Brightway_Session.ipynb` file.
 
-    > **What are Jupyter Notebooks?**
+    > **What are Jupyter Notebooks?**  
     > Jupyter Notebooks are like interactive lab notebooks for code. They let us write and run code in small blocks, called cells, and see the output immediately. We can also write notes and text, making them perfect for learning and experimenting.
 
 3.  **Find an Activity:**
-    * In the notebook, we will run the first few code cells to import the Brightway library and connect to the `ecoinvent-3.11-cutoff` database that you installed.
+    * In the notebook, we will run the first few code cells to import the Brightway library and connect to the `ecoinvent-3.9.1-cutoff` database that you installed.
     * We will then learn how to use the `.search()` method to look for a specific process: the Spanish process for operating an electric water pump. We will see how to loop through the search results to select the exact activity we want.
 
 ---
@@ -52,7 +52,7 @@ Welcome to the introductory session on Brightway! This document will serve as ou
 1.  **Launch Activity Browser:**
     * Go back to your Anaconda Prompt window (or open a new one and activate the `bw-course` environment).
     * Type `activity-browser` and press Enter.
-    * When prompted, select the `ecoinvent-3.11-cutoff` database.
+    * When prompted, select the `ecoinvent-3.9.1-cutoff` database.
 
 2.  **Perform an LCA in the GUI:**
     * We will find the same `'water pump operation, electric'` process using the search bar.
@@ -77,6 +77,8 @@ Welcome to the introductory session on Brightway! This document will serve as ou
 
 2.  **Compare the Results:**
     * Finally, we'll run the LCA on our new, modified activity and compare the GWP score to the original Spanish one.
+
+---
 
 ### Session Recap & Next Steps
 

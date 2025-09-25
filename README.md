@@ -25,8 +25,9 @@ All the files you need for the course are stored in this repository.
 3.  A file named `brightway_eut-main.zip` (or similar) will be downloaded, likely to your `Downloads` folder.
     > If the browser asks you 'where would you like to save your file?', then directly choose your Desktop. If not, remember that it will appear probably in your 'Downloads' folder.
 4.  Find the downloaded ZIP file, right-click it, and select **`Extract All...`**.
-5.  After extraction, you will have a folder named `brightway_eut-main`. **Rename this folder** to exactly `brightway_course`.
-6.  Finally, if it's not already there, **move the `brightway_course` folder** to your **Desktop**.
+5.  In the extraction dialog, click **`Extract to brightway_eut-main`** (this will create a folder with the same name as the zip).
+6.  After extraction, you will have a folder named `brightway_eut-main`. **Rename this folder** to exactly `brightway_course`.
+7.  Finally, if it's not already there, **move the `brightway_course` folder** to your **Desktop**.
 
 ---
 ## Step 3: Install the Software Environment
@@ -38,22 +39,33 @@ This step uses the command line to automatically install all our course software
     ```
     cd Desktop\brightway_course
     ```
-3.  **Create the software environment.** This command reads the `environment.yaml` file and installs all required software. This will take 5-10 minutes.
+3.  **Create the software environment.** This command reads the `environment.yaml` file and installs all required software. This will take 5–10 minutes.
     ```
     conda env create -f environment.yaml
     ```
-    > It might ask you if you agree with some terms. You just have to write the corresponding letter and press enter as many times as it asks :D
+    > It might ask you if you agree with some terms. You just have to write the corresponding letter and press enter as many times as it asks.
     >
-    > **Troubleshooting:** If you get an error that the environment already exists, you can remove the old one by running `conda env remove -n bw-course` and then try the `create` command again.
+    > **Troubleshooting:** If you get an error that the environment already exists, you can remove the old one by running:
+    > ```
+    > conda env remove -n bw-course
+    > ```
+    > Then try the `create` command again.
 
 ---
-## Step 4: Download the Ecoinvent Database
+## Step 4: Download and Extract the Ecoinvent Database
 
 Now you need to download the raw data file.
 
-1.  Click the following link to download the required Ecoinvent file: [Download Ecoinvent 3.11 ecoSpold02](https://eurecatcloud.sharepoint.com/:u:/s/WEEIUnit-LiniaImpacteAmbiental/EWTDKOQCCmVOrS1IA_YFRZ4BT91T2UDVE3I5gGJA9H_ycQ?e=1xlXv8)
-2.  The file is named `ecoinvent 3.11_cutoff_ecoSpold02.7z`.
-3.  **Crucially, move this downloaded `.7z` file** into the `brightway_course` folder on your Desktop. The folder should now contain this file alongside the other course materials.
+1.  Click the following link to download the required Ecoinvent file: [Download Ecoinvent 3.9.1 ecoSpold02](https://eurecatcloud.sharepoint.com/:u:/s/WEEIUnit-LiniaImpacteAmbiental/EWfs3qB46jROiwKj3_6BQcMBM-VOLieV4ma4qG_W6Y0JUg?e=HIw5Rw)
+2.  The file is named `ecoinvent 3.9.1_cutoff_ecoSpold02.7z`.
+3.  Move this downloaded `.7z` file into the `brightway_course` folder on your Desktop.
+4.  Right-click the `.7z` file and select **`Extract here on ecoinvent 3.9.1_cutoff_ecoSpold02`**.
+    > Make sure you click the option that extracts into a folder named the same as the zip (`ecoinvent 3.9.1_cutoff_ecoSpold02`).  
+    > Inside that folder you should see a subfolder called `datasets`.
+
+At this point, your `brightway_course` folder should contain:
+- The course files (from GitHub)
+- The folder `ecoinvent 3.9.1_cutoff_ecoSpold02` with a `datasets` subfolder
 
 ---
 ## Step 5: Import the Ecoinvent Database into Brightway
@@ -64,23 +76,29 @@ This is the final step. We will run a script that sets up the database for you.
     ```
     cd Desktop\brightway_course
     ```
-2.  **Activate the environment.** You must do this every time you want to use the course software.
+2.  **Activate the environment.** You must do this every time you want to use the course software:
     ```
     conda activate bw-course
     ```
     > You will know it worked if the text at the start of the command prompt changes from `(base)` to `(bw-course)`.
-3.  **Run the import script.** This will take 10-20 minutes. Type the following command and press Enter.
+3.  **Run the import script.** This will take 10–20 minutes. Type the following command and press Enter:
     ```
     python import_ecoinvent.py
     ```
-    You will see a lot of text as it imports and processes the database.
+    You will see a lot of text as it imports and processes the database.  
+    At the end, you should see:
+    ```
+    - Successfully imported 'ecoinvent-3.9.1-cutoff' with XXXX activities.
+
+    All done. You can now open Activity Browser and explore the database.
+    ```
 
 ---
 ## ✅ Readiness Checklist
 
 You are ready for the course if:
 
-* The final command (`python import_ecoinvent.py`) finishes with a "SUCCESS" message.
+* The final command (`python import_ecoinvent.py`) finishes with the success message above.
 * You did not see any major red "ERROR" messages during the process.
 
 ### 🆘 Getting Help
