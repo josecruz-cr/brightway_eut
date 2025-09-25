@@ -24,10 +24,9 @@ All the files you need for the course are stored in this repository.
 2.  In the dropdown menu, click **`Download ZIP`**.
 3.  A file named `brightway_eut-main.zip` (or similar) will be downloaded, likely to your `Downloads` folder.
     > If the browser asks you 'where would you like to save your file?', then directly choose your Desktop. If not, remember that it will appear probably in your 'Downloads' folder.
-4.  Find the downloaded ZIP file, right-click it, and select **`Extract All...`**.
-5.  In the extraction dialog, click **`Extract to brightway_eut-main`** (this will create a folder with the same name as the zip).
-6.  After extraction, you will have a folder named `brightway_eut-main`. **Rename this folder** to exactly `brightway_course`.
-7.  Finally, if it's not already there, **move the `brightway_course` folder** to your **Desktop**.
+4.  Find the downloaded ZIP file, right-click it, and select **`Extract here on brightway_eut-main`** (this will create a folder with the same name as the zip).
+5.  After extraction, you will have a folder named `brightway_eut-main`. **Rename this folder** to exactly `brightway_course`.
+6.  Finally, if it's not already there, **move the `brightway_course` folder** to your **Desktop**.
 
 ---
 ## Step 3: Install the Software Environment
