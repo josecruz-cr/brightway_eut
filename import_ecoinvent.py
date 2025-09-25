@@ -3,42 +3,37 @@ import os
 import shutil
 import py7zr
 import appdirs
+import traceback
 
 # --- Configuration ---
-# Name for the Brightway project
-PROJECT_NAME = "bw-course-project"
-# Name for the database once imported
-DB_NAME = "ecoinvent-3.11-cutoff"
-# Filename of the downloaded Ecoinvent data
-ECOINVENT_FILE = "ecoinvent 3.11_cutoff_ecoSpold02.7z"
-# Temporary directory for extracted files
-EXTRACT_DIR = "extracted_ecoinvent_data"
+PROJECT_NAME = "bw-course-project"       # Brightway project name
+DB_NAME = "ecoinvent-3.11-cutoff"        # Name for imported database
+ECOINVENT_FILE = "ecoinvent 3.11_cutoff_ecoSpold02.7z"  # Ecoinvent .7z file
+EXTRACT_DIR = "extracted_ecoinvent_data"  # Temporary extraction folder
 # ---------------------
 
-# --- Main import logic ---
 print("--- Brightway Database Importer for Eurecat Course ---")
 
 # --- Step 1: Clean Slate Reset ---
-# This "hard reset" is the most robust way to ensure every student
-# starts from the same clean state.
-print(f"\n[Step 1/4] Checking for and removing any old '{PROJECT_NAME}' project data...")
+print(f"\n[Step 1/4] Removing any old project data for '{PROJECT_NAME}'...")
 bw2_projects_dir = appdirs.user_data_dir("pylca", "Brightway2")
 project_dir = os.path.join(bw2_projects_dir, PROJECT_NAME)
 if os.path.exists(project_dir):
     shutil.rmtree(project_dir, ignore_errors=True)
 print("Reset complete.")
 
-# Now, with a clean directory, we import the Brightway2 libraries
+# --- Step 2: Brightway Setup ---
 import brightway2 as bw
 import bw2io
 
-# --- Step 2: Brightway Setup ---
-# Set up the project and download standard data (biosphere, methods).
-# This requires an internet connection on the first run.
-print(f"\n[Step 2/4] Setting up new Brightway project: '{PROJECT_NAME}'...")
+print(f"\n[Step 2/4] Creating new Brightway project: '{PROJECT_NAME}'...")
 bw.projects.set_current(PROJECT_NAME)
-print("Downloading and installing standard data (biosphere, LCIA methods)...")
-bw2io.bw2setup()
+
+if 'biosphere3' not in bw.databases:
+    print("Downloading and installing standard data (biosphere, LCIA methods)...")
+    bw2io.bw2setup()
+else:
+    print("Standard data already installed. Skipping download.")
 
 # --- Step 3: Find and Extract Ecoinvent Data ---
 current_path = os.getcwd()
@@ -52,11 +47,10 @@ if DB_NAME in bw.databases:
 
 if not os.path.exists(file_path):
     print(f"\n❌ ERROR: Ecoinvent file not found!", file=sys.stderr)
-    print(f"Please make sure the file '{ECOINVENT_FILE}' is in this folder:", file=sys.stderr)
-    print(f"--> {current_path}", file=sys.stderr)
+    print(f"Please make sure '{ECOINVENT_FILE}' is in this folder: {current_path}", file=sys.stderr)
     sys.exit(1)
 
-print(f"\n[Step 3/4] Found Ecoinvent data file. Extracting...")
+print(f"\n[Step 3/4] Extracting Ecoinvent data from '{ECOINVENT_FILE}'...")
 try:
     if os.path.exists(extract_path):
         shutil.rmtree(extract_path)
@@ -70,17 +64,26 @@ except Exception as e:
     sys.exit(1)
 
 # --- Step 4: Import Database ---
-# The actual data is usually in a 'datasets' subfolder
-import_path = os.path.join(extract_path, 'datasets')
-if not os.path.exists(import_path):
-    subfolders = [f.path for f in os.scandir(extract_path) if f.is_dir()]
-    import_path = subfolders[0] if subfolders else extract_path
+# Recursively find folder containing .spold files
+import_path = None
+for root, dirs, files in os.walk(extract_path):
+    if any(f.endswith('.spold') for f in files):
+        import_path = root
+        break
+
+if import_path is None:
+    print("\n❌ ERROR: No .spold files found in extracted data.", file=sys.stderr)
+    sys.exit(1)
 
 print(f"Data for import found at: {import_path}")
 print(f"\n[Step 4/4] Starting database import into Brightway...")
-print("This is the longest step (10-20 minutes) and uses a lot of memory.")
+print("⚠️ This step may take 10-20 minutes and use a lot of RAM.")
 
 try:
+    if DB_NAME in bw.databases:
+        print(f"Database '{DB_NAME}' exists. Removing for clean import...")
+        del bw.databases[DB_NAME]
+
     importer = bw2io.SingleOutputEcospold2Importer(import_path, DB_NAME)
     importer.apply_strategies()
     importer.statistics()
@@ -90,4 +93,5 @@ except Exception as e:
     print("\n❌ ERROR: An unexpected error occurred during import.", file=sys.stderr)
     print("Please check if you have enough free RAM and disk space.", file=sys.stderr)
     print(f"Detailed error: {e}", file=sys.stderr)
+    print(traceback.format_exc())
     sys.exit(1)

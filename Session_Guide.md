@@ -1,77 +1,90 @@
 # 🍃 Brightway Course: Session Guide
 
-[cite_start]Welcome to the introductory session on Brightway! [cite: 69] [cite_start]This document will serve as our guide for the next two hours[cite: 70].
+Welcome to the introductory session on Brightway! This document will serve as our guide for the next two hours. We'll follow the steps together, and you can use this as a reference after the course is complete.
 
-[cite_start]**Course Goal:** By the end of this session, you will be able to perform fundamental Life Cycle Assessment (LCA) operations in Brightway using both Python code and the Activity Browser graphical interface[cite: 72].
+**Course Goal:** By the end of this session, you will be able to perform fundamental Life Cycle Assessment (LCA) operations in Brightway using both Python code and the Activity Browser graphical interface.
 
-[cite_start]**Prerequisites:** It is expected that you have completed all the pre-work instructions in the `README.md` file[cite: 73].
+**Prerequisites:** It is expected that you have completed all the pre-work instructions in the `README.md` file.
 
 ---
 
 ### Part 1: Launching Our Environment & Finding Data
 
-[cite_start]**Goal:** In this section, we'll start our coding environment and learn how to connect to the Ecoinvent database to find specific processes[cite: 74].
+**Goal:** In this section, we'll start our coding environment and learn how to connect to the Ecoinvent database to find specific processes.
 
 1.  **Launch the Environment:**
-    * [cite_start]First, open the **Anaconda Prompt** from your Start Menu[cite: 75].
-    * [cite_start]In the terminal window, navigate to our course folder by typing `cd Desktop\brightway_course` and pressing Enter[cite: 76].
-    * [cite_start]Next, activate our software environment by typing `conda activate bw-course` and pressing Enter[cite: 77].
-    * [cite_start]Finally, start the Jupyter Lab interface by typing `jupyter lab` and pressing Enter[cite: 78]. [cite_start]This will open a new tab in your web browser[cite: 79].
+    * First, open the **Anaconda Prompt** from your Start Menu.
+    * In the black terminal window, navigate to our course folder by typing `cd Desktop\brightway_course` and pressing Enter.
+    * Next, activate our software environment by typing `conda activate bw-course` and pressing Enter.
+    * Finally, start the Jupyter Lab interface by typing `jupyter lab` and pressing Enter. This will open a new tab in your web browser.
 
 2.  **Open the Notebook:**
-    * [cite_start]In the Jupyter Lab browser tab, find and double-click the `Brightway_Session.ipynb` file to open it[cite: 80].
-    > **What are Jupyter Notebooks?** They are interactive lab notebooks for code, letting us write and run code in small blocks (cells) and see the output immediately[cite: 81, 82].
+    * In the Jupyter Lab browser tab, find and open the `Brightway_Session.ipynb` file.
+
+    > **What are Jupyter Notebooks?**
+    > Jupyter Notebooks are like interactive lab notebooks for code. They let us write and run code in small blocks, called cells, and see the output immediately. We can also write notes and text, making them perfect for learning and experimenting.
 
 3.  **Find an Activity:**
-    * [cite_start]In the notebook, we will run the first few code cells to import the Brightway library and connect to the `ecoinvent-3.11-cutoff` database[cite: 84].
-    * [cite_start]We will then use the `.search()` method to look for the Spanish process for operating an electric water pump[cite: 85].
+    * In the notebook, we will run the first few code cells to import the Brightway library and connect to the `ecoinvent-3.11-cutoff` database that you installed.
+    * We will then learn how to use the `.search()` method to look for a specific process: the Spanish process for operating an electric water pump. We will see how to loop through the search results to select the exact activity we want.
 
 ---
 
 ### Part 2: Calculating Environmental Impact with Code
 
-[cite_start]**Goal:** Now we'll use Python to perform a complete, simple Life Cycle Assessment and explore the results[cite: 87].
+**Goal:** Now we'll use Python to perform a complete, simple Life Cycle Assessment and explore the results.
 
 1.  **Run a Simple LCA:**
-    * [cite_start]To perform an LCA, we need a **functional unit** and an **impact method**[cite: 88].
-    * [cite_start]We will search for the "IPCC 2021" method for Global Warming Potential (GWP)[cite: 89].
-    * [cite_start]We'll perform the LCA calculation using the `.lci()` and `.lcia()` functions and interpret the final score[cite: 90].
+    * To perform an LCA, we need a **functional unit** (our water pump activity) and an **impact method**.
+    * We will search for the "IPCC 2021" method for Global Warming Potential (GWP).
+    * Using our functional unit and method, we'll perform the LCA calculation using the `lca.lci()` and `lca.lcia()` functions and interpret the final score.
 
 2.  **Explore the Technosphere:**
-    * [cite_start]We will look inside the process to see its direct inputs, also called the **technosphere**[cite: 92].
-    * [cite_start]We will run code that iterates through the `.technosphere()` exchanges to see the underlying processes[cite: 93].
+    * What makes up that final impact score? We will look inside the process to see its direct inputs, also called the **technosphere**.
+    * We will run the code that iterates through the `.technosphere()` exchanges to see the underlying processes, paying close attention to the electricity input.
 
 ---
 
 ### Part 3: Visual Exploration with the Activity Browser
 
-[cite_start]**Goal:** A graphical interface is often better for exploration[cite: 94]. [cite_start]Here, we'll learn to use the Activity Browser[cite: 95].
+**Goal:** While code is powerful, a graphical interface is often better for exploration. Here, we'll learn to use the Activity Browser.
 
 1.  **Launch Activity Browser:**
-    * [cite_start]Go back to your Anaconda Prompt window (or open a new one and activate the `bw-course` environment)[cite: 95].
-    * [cite_start]Type `activity-browser` and press Enter[cite: 96].
-    * [cite_start]When prompted, select the `ecoinvent-3.11-cutoff` database[cite: 96].
+    * Go back to your Anaconda Prompt window (or open a new one and activate the `bw-course` environment).
+    * Type `activity-browser` and press Enter.
+    * When prompted, select the `ecoinvent-3.11-cutoff` database.
 
 2.  **Perform an LCA in the GUI:**
-    * [cite_start]We will find the same `'water pump operation, electric'` process using the search bar[cite: 97].
-    * [cite_start]We will then walk through the steps to select a functional unit, choose an LCIA method, and run the calculation[cite: 98].
+    * We will find the same `'water pump operation, electric'` process using the search bar.
+    * We will then walk through the steps to select a functional unit, choose an LCIA method, and run the calculation to see the results and Sankey diagrams.
 
-3.  **Import Data from Excel (Brief Overview):**
-    * [cite_start]We will see how the Activity Browser can import inventory data using the `Database` -> `Import from Excel` menu option[cite: 100].
+3.  **Import Data from Excel:**
+    * A common task is to import your own inventory data. We will see how the Activity Browser makes this easy by using the `Database` -> `Import from Excel` menu option.
 
 ---
 
 ### Part 4: Bonus - Comparative LCA
 
-[cite_start]**Goal:** To finish, we'll see a powerful feature of using code: creating a new process to compare scenarios[cite: 101].
+**Goal:** To finish, we'll see a powerful feature of using code: creating a new process to compare scenarios.
 
 1.  **Create a New Process from Code:**
-    * [cite_start]Returning to our Jupyter Notebook, we will see how the pump's carbon footprint changes if we run it with French electricity instead of Spanish[cite: 102].
-    * [cite_start]We will run cells that programmatically: **Copy** the original activity, **Find** the French electricity market, **Swap** the electricity input, and **Save** the new activity[cite: 103, 104, 105].
+    * Returning to our Jupyter Notebook, we will see how the pump's carbon footprint changes if we run it with French electricity instead of Spanish.
+    * We will run cells that programmatically:
+        1.  **Copy** the original Spanish water pump activity.
+        2.  **Find** the French low-voltage electricity market.
+        3.  **Swap** the electricity input in our new copied activity.
+        4.  **Save** the new activity.
 
 2.  **Compare the Results:**
-    * [cite_start]Finally, we'll run the LCA on our new, modified activity and compare the GWP score to the original one[cite: 105].
+    * Finally, we'll run the LCA on our new, modified activity and compare the GWP score to the original Spanish one.
 
 ### Session Recap & Next Steps
 
-Congratulations! [cite_start]You have now learned how to connect to a database, find activities, perform an LCA with Python, explore inputs, use the Activity Browser, and run a comparative LCA[cite: 106, 107, 108, 109].
+Congratulations! You have now learned how to:
+* Connect to an Ecoinvent database in Brightway.
+* Find activities and perform an LCA using Python.
+* Explore the inputs of a unit process.
+* Use the Activity Browser for visual analysis and data import.
+* Create a new process from an existing one to run a comparative LCA.
+
+For further learning, we recommend exploring the [official Brightway documentation](https://docs.brightway.dev/) and community forums like [Stack Overflow](https://stackoverflow.com/questions/tagged/brightway).
